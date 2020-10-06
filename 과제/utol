@@ -1,0 +1,30 @@
+echo "working directory:"
+read WD
+PWD=`pwd`
+if [ -z $WD ];
+then
+	cd
+	cd $PWD
+else
+	cd
+	cd .$WD
+	if [ $? -ne 0 ]
+	then
+		echo "NOT EXIST"
+		exit 1
+	fi
+fi
+for i in *
+do
+	echo $i | tr '[a-z]''[A-Z]' '[A-Z]''[a-z]' > change
+	CHANGE=`cat change`
+	mv $i $CHANGE
+done
+if [ -f "change" ]
+then
+	rm change
+fi
+if [ -f "CHANGE" ]
+then
+	rm CHANGE
+fi
